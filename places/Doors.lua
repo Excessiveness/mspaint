@@ -52,7 +52,7 @@ local IsGame = (game.PlaceId == 6839171747)
 -- If in game, set prompts to instant interact
 if IsGame then
     print("You are in the game!")
-    task.wait(0.5) -- Wait briefly to ensure ProximityPrompts exist
+    task.wait(5) -- Wait briefly to ensure ProximityPrompts exist
     SetAllPromptsToInstantInteract() -- Remove hold duration for prompts
 else
     checkLobby() -- Call the checkLobby function if not in the game
