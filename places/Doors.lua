@@ -1,9 +1,6 @@
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer
 
--- Wait for 30 seconds before activating the script
-task.wait(30)
-
 -- Function to check if the game is loaded
 local function onGameLoaded()
     print("Loaded") -- Print when the game is loaded
@@ -40,23 +37,34 @@ local function SetAllPromptsToInstantInteract()
     end
 end
 
--- Wait for the game to load, then proceed
-if not game:IsLoaded() then
-    game.Loaded:Wait() -- Wait until the game is fully loaded
-    onGameLoaded() -- Call the onGameLoaded function
+-- Function to activate the script when Confirm UI element is loaded
+local function waitForConfirmUI()
+    local confirmButton = Players.Phynomie.PlayerGui.MainUI:WaitForChild("ItemShop"):WaitForChild("Confirm", 60) -- Wait for Confirm button with a timeout of 60 seconds
+    print("Confirm UI element loaded.")
+    
+    -- Now proceed with the rest of the script after the Confirm button is loaded.
+    
+    -- Wait for the game to load, then proceed
+    if not game:IsLoaded() then
+        game.Loaded:Wait() -- Wait until the game is fully loaded
+        onGameLoaded() -- Call the onGameLoaded function
+    end
+
+    -- Add a small wait time before checking if the player is in the lobby
+    task.wait(0.1)
+
+    -- Check if the player is in the game
+    local IsGame = (game.PlaceId == 6839171747)
+
+    -- If in game, set prompts to instant interact
+    if IsGame then
+        print("You are in the game!")
+        task.wait(0.5) -- Wait briefly to ensure ProximityPrompts exist
+        SetAllPromptsToInstantInteract() -- Remove hold duration for prompts
+    else
+        checkLobby() -- Call the checkLobby function if not in the game
+    end
 end
 
--- Add a small wait time before checking if the player is in the lobby
-task.wait(0.1)
-
--- Check if the player is in the game
-local IsGame = (game.PlaceId == 6839171747)
-
--- If in game, set prompts to instant interact
-if IsGame then
-    print("You are in the game!")
-    task.wait(0.5) -- Wait briefly to ensure ProximityPrompts exist
-    SetAllPromptsToInstantInteract() -- Remove hold duration for prompts
-else
-    checkLobby() -- Call the checkLobby function if not in the game
-end
+-- Start waiting for the Confirm UI to load
+waitForConfirmUI()
