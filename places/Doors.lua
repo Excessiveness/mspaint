@@ -48,7 +48,7 @@ local function SetAllPromptsToInstantInteract()
     end
 end
 
--- Wait for 20 seconds before removing the hold duration
+-- Wait for 30 seconds before removing the hold duration
 task.wait(30)
 SetAllPromptsToInstantInteract()
 
