@@ -49,7 +49,7 @@ local function SetAllPromptsToInstantInteract()
 end
 
 -- Wait for 20 seconds before removing the hold duration
-task.wait(20)
+task.wait(30)
 SetAllPromptsToInstantInteract()
 
 -- Wait for the Confirm button to load
