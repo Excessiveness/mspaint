@@ -1,7 +1,6 @@
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer
 
-task.wait(20)
 -- Function to check if the game is loaded
 local function onGameLoaded()
     print("Loaded") -- Print when the game is loaded
@@ -49,6 +48,8 @@ local function SetAllPromptsToInstantInteract()
     end
 end
 
+-- Wait for 20 seconds before removing the hold duration
+task.wait(20)
 SetAllPromptsToInstantInteract()
 
 -- Wait for the Confirm button to load
