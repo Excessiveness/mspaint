@@ -66,9 +66,57 @@ local function removeRoomElements()
             roomEntrance:Destroy() -- Remove RoomEntrance
             print("RoomEntrance removed from the first room.")
         end
+
+        -- Activate the character movement and line creation function after removing elements
+        activatePlayerMovement()
     else
         print("First room does not exist.")
     end
+end
+
+-- Function to create a visual line and move the player
+local function activatePlayerMovement()
+    -- Get the player and their character
+    local player = Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoid = character:WaitForChild("Humanoid")
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+    -- Define the line size (small and long)
+    local lineLength = 20 -- Length of the line (you can adjust this)
+    local lineThickness = 0.1 -- Increased thickness for better visibility
+
+    -- Create the visual line (as a part)
+    local line = Instance.new("Part")
+    line.Size = Vector3.new(lineLength, lineThickness, lineThickness) -- Small and thin
+    line.Anchored = true
+    line.CanCollide = false -- No collision, just for visuals
+    line.BrickColor = BrickColor.new("Aqua") -- Changed to Aqua for visibility
+    line.Material = Enum.Material.Neon -- Make it glow for better visibility
+    line.Transparency = 0 -- Set transparency to 0 to make it fully opaque
+
+    -- Position the line in front of the player, aligned with the player's forward direction
+    line.CFrame = humanoidRootPart.CFrame * CFrame.new(0, -1, -lineLength / 2) * CFrame.Angles(0, math.rad(90), 0) -- Adjust for forward direction
+
+    line.Parent = workspace
+
+    -- Calculate the target position (end of the line)
+    local targetPosition = humanoidRootPart.Position + (humanoidRootPart.CFrame.LookVector * lineLength)
+
+    -- Walk to the end of the line
+    humanoid:MoveTo(targetPosition)
+
+    -- Stop the player once they reach the end of the line
+    humanoid.MoveToFinished:Connect(function(reached)
+        if reached then
+            humanoid.WalkSpeed = 0 -- Stop the player once they reach the end
+            wait(1) -- Wait for 1 second (you can change this)
+            humanoid.WalkSpeed = 16 -- Restore default walk speed (16 studs/sec)
+
+            -- Remove the line after the player has reached the end
+            line:Destroy()
+        end
+    end)
 end
 
 -- Wait for the game to load, then proceed
@@ -88,7 +136,7 @@ if IsGame then
     print("You are in the game!")
     task.wait(0.5) -- Wait briefly to ensure ProximityPrompts exist
     SetAllPromptsToInstantInteract() -- Remove hold duration for prompts
-    removeRoomElements() -- Call the function to remove room elements after setting prompts-- Call the function to remove room elements after setting prompts
+    removeRoomElements() -- Call the function to remove room elements after setting prompts
 else
     checkLobby() -- Call the checkLobby function if not in the game
 end
