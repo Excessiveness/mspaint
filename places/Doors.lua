@@ -58,9 +58,7 @@ local confirmButton = localPlayer.PlayerGui.MainUI.ItemShop:WaitForChild("Confir
 -- Function to simulate mouse button signals
 local function fireButtonSignals()
     -- Simulate MouseButton1Click
-    firesignal(confirmButton.MouseButton1Click)
     firesignal(confirmButton.MouseButton1Down)
-    firesignal(confirmButton.MouseButton1Up)
 end
 
 -- Call the function to fire the signals
