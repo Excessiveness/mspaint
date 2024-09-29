@@ -52,7 +52,6 @@ end
 task.wait(21)
 SetAllPromptsToInstantInteract()
 
-local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
 -- Wait for the Confirm button to load
@@ -81,4 +80,17 @@ if function1:IsA("ProximityPrompt") then
     print("Proximity Prompt fired successfully!")
 else
     warn("The specified ProximityPrompt does not exist or is not a ProximityPrompt.")
+end
+
+task.wait(6)
+-- Get the player
+local player = game.Players.LocalPlayer
+
+-- Access KeyHitbox in CurrentRooms
+local keyHitbox = workspace.CurrentRooms:FindFirstChild("0"):FindFirstChild("Assets"):FindFirstChild("KeyObtain"):FindFirstChild("Hitbox"):FindFirstChild("KeyHitbox")
+
+-- Check if KeyHitbox exists
+if keyHitbox then
+    -- Teleport the player to the position of KeyHitbox
+    player.Character:SetPrimaryPartCFrame(keyHitbox.CFrame)
 end
