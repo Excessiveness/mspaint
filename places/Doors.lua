@@ -1,7 +1,7 @@
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer
 
--- Wait for 30 seconds before activating the script
+-- Wait for 20 seconds before activating the script
 task.wait(20)
 
 -- Function to check if the game is loaded
@@ -40,6 +40,37 @@ local function SetAllPromptsToInstantInteract()
     end
 end
 
+-- Function to remove specific elements from the first room
+local function removeRoomElements()
+    -- Access the first room in CurrentRooms
+    local firstRoom = workspace.CurrentRooms:FindFirstChild("0")
+
+    -- Check if the first room exists
+    if firstRoom then
+        -- Access and remove DoorHitbox from StarterElevator
+        local starterElevator = firstRoom:FindFirstChild("StarterElevator")
+        
+        if starterElevator then
+            local doorHitbox = starterElevator:FindFirstChild("DoorHitbox")
+            
+            if doorHitbox then
+                doorHitbox:Destroy() -- Remove DoorHitbox
+                print("DoorHitbox removed from StarterElevator.")
+            end
+        end
+
+        -- Access and remove RoomEntrance from the first room
+        local roomEntrance = firstRoom:FindFirstChild("RoomEntrance")
+        
+        if roomEntrance then
+            roomEntrance:Destroy() -- Remove RoomEntrance
+            print("RoomEntrance removed from the first room.")
+        end
+    else
+        print("First room does not exist.")
+    end
+end
+
 -- Wait for the game to load, then proceed
 if not game:IsLoaded() then
     game.Loaded:Wait() -- Wait until the game is fully loaded
@@ -57,6 +88,7 @@ if IsGame then
     print("You are in the game!")
     task.wait(0.5) -- Wait briefly to ensure ProximityPrompts exist
     SetAllPromptsToInstantInteract() -- Remove hold duration for prompts
+    removeRoomElements() -- Call the function to remove room elements after setting prompts-- Call the function to remove room elements after setting prompts
 else
     checkLobby() -- Call the checkLobby function if not in the game
 end
