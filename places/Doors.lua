@@ -48,8 +48,8 @@ local function SetAllPromptsToInstantInteract()
     end
 end
 
--- Wait for 30 seconds before removing the hold duration
-task.wait(30)
+-- Wait for 21 seconds before removing the hold duration
+task.wait(21)
 SetAllPromptsToInstantInteract()
 
 local Players = game:GetService("Players")
