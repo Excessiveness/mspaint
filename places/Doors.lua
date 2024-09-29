@@ -66,9 +66,6 @@ local function removeRoomElements()
             roomEntrance:Destroy() -- Remove RoomEntrance
             print("RoomEntrance removed from the first room.")
         end
-
-        -- Activate the character movement and line creation function after removing elements
-        activatePlayerMovement()
     else
         print("First room does not exist.")
     end
@@ -137,6 +134,8 @@ if IsGame then
     task.wait(0.5) -- Wait briefly to ensure ProximityPrompts exist
     SetAllPromptsToInstantInteract() -- Remove hold duration for prompts
     removeRoomElements() -- Call the function to remove room elements after setting prompts
+    task.wait(0.5) -- Wait briefly to ensure that The Door is Removed
+    activatePlayerMovement() -- Activate the character movement and line creation function after removing elements
 else
     checkLobby() -- Call the checkLobby function if not in the game
 end
