@@ -82,7 +82,7 @@ else
     warn("The specified ProximityPrompt does not exist or is not a ProximityPrompt.")
 end
 
-task.wait(6)
+task.wait(10)
 -- Get the player
 local player = game.Players.LocalPlayer
 
