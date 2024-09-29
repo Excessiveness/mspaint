@@ -52,11 +52,15 @@ end
 task.wait(30)
 SetAllPromptsToInstantInteract()
 
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
 -- Wait for the Confirm button to load
-local confirmButton = localPlayer.PlayerGui.MainUI.ItemShop:WaitForChild("Confirm")
+local confirmButton = LocalPlayer.PlayerGui.MainUI.ItemShop:WaitForChild("Confirm")
 
 -- Function to simulate mouse button signals
 local function fireButtonSignals()
+    
     -- Simulate MouseButton1Click
     firesignal(confirmButton.MouseButton1Down)
 end
@@ -73,7 +77,7 @@ local function1 = workspace.CurrentRooms["0"].StarterElevator.Model.Model.SkipBu
 -- Check if the ProximityPrompt exists
 if function1:IsA("ProximityPrompt") then
     -- Fire the ProximityPrompt
-    firesignal(function1.Triggered)
+    fireproximityprompt(function1)
     print("Proximity Prompt fired successfully!")
 else
     warn("The specified ProximityPrompt does not exist or is not a ProximityPrompt.")
