@@ -42,7 +42,7 @@ local function waitForConfirmUI()
     -- Wait for the Confirm button to be available in the PlayerGui
     local confirmButton = Players.Phynomie.PlayerGui.MainUI.ItemShop:WaitForChild("Confirm", 60) -- Wait for Confirm button with a timeout of 60 seconds
     print("Confirm UI element loaded.")
-    
+
     -- Now proceed with the rest of the script after the Confirm button is loaded.
     
     -- Wait for the game to load, then proceed
@@ -67,5 +67,5 @@ local function waitForConfirmUI()
     end
 end
 
--- Start waiting for the Confirm UI to load
+-- Start waiting for the Confirm UI to load and activate the script
 waitForConfirmUI()
